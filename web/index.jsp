@@ -78,6 +78,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         <script>
             $(document).ready(function () {
+                $('#servicios').append('<option> Seleccionar Servicio</option>');
                 $.get("http://localhost:8080/AppJava01/Tarea", function (data, status) {
                     $.each(data, function (i, item) {
                         $('#servicios').append('<option value=' + item.servicio_id + '>' + item.nombre + '</option>');
@@ -86,6 +87,7 @@
                 });
                 
                 $("#servicios").change(function(){
+                   $("#unidades").empty(); 
                    var servicio_id=$("#servicios").val();
                    alert(""+servicio_id);
                     $.get("http://localhost:8080/AppJava01/Tarea?servicio_id="+servicio_id, function (data, status) {
