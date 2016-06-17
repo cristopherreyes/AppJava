@@ -80,13 +80,14 @@
             $(document).ready(function () {
                 $.get("http://localhost:8080/AppJava01/Tarea", function (data, status) {
                     $.each(data, function (i, item) {
-                        $('#servicios').append('<option value=' + item.unidad_id + '>' + item.nombre + '</option>');
+                        $('#servicios').append('<option value=' + item.servicio_id + '>' + item.nombre + '</option>');
                     });
 
                 });
                 
                 $("#servicios").change(function(){
-                   alert("Mensaje"); 
+                   var servicio_id=$("#servicios").val();
+                   alert(""+servicio_id);
                 });
             });
 
