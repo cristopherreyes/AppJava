@@ -23,27 +23,48 @@ import negocio.Servicio;
  * @author ricardotoledo
  */
 public class Tarea extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             Coneccion con = new Coneccion();
-            con.setConsulta("select * from Servicios");
-            ArrayList lista=new ArrayList();
-            try {
-                while(con.getResultado().next()){
-                    Servicio serv=new Servicio();
-                    serv.setServicio_id(con.getResultado().getInt("servicio_id"));
-                    serv.setNombre(con.getResultado().getString("nombre"));
-                    serv.setEstado(con.getResultado().getString("estado"));
-                    lista.add(serv);
+            if (request.getParameter("servicio_id") != null) {
+                String servicio_id=request.getParameter("servicio_id");
+                con.setConsulta("select * from Unidades where servicio_id='"+servicio_id+"'");
+                ArrayList lista = new ArrayList();
+                try {
+                    while (con.getResultado().next()) {
+                        Servicio serv = new Servicio();
+                        serv.setServicio_id(con.getResultado().getInt("servicio_id"));
+                        serv.setNombre(con.getResultado().getString("nombre"));
+                        serv.setEstado(con.getResultado().getString("estado"));
+                        lista.add(serv);
+                    }
+                } catch (SQLException ex) {
                 }
-            } catch (SQLException ex) {
+                String json = new Gson().toJson(lista);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
+            } else {
+                con.setConsulta("select * from Servicios");
+                ArrayList lista = new ArrayList();
+                try {
+                    while (con.getResultado().next()) {
+                        Servicio serv = new Servicio();
+                        serv.setServicio_id(con.getResultado().getInt("servicio_id"));
+                        serv.setNombre(con.getResultado().getString("nombre"));
+                        serv.setEstado(con.getResultado().getString("estado"));
+                        lista.add(serv);
+                    }
+                } catch (SQLException ex) {
+                }
+                String json = new Gson().toJson(lista);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
             }
-            String json = new Gson().toJson(lista);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(json);
 
         }
     }
