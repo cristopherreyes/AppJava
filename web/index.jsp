@@ -63,7 +63,7 @@
                 </div>
                 <div class="form-group">
                     <label for="servicio">Asignar Tarea</label>
-                    <textarea class="form-control" rows="102"></textarea>
+                    <textarea class="form-control" rows="5"></textarea>
                 </div>
               
                 <button type="submit" class="btn btn-danger">Guardar Tarea</button>
@@ -83,6 +83,10 @@
                         $('#servicios').append('<option value=' + item.unidad_id + '>' + item.nombre + '</option>');
                     });
 
+                });
+                
+                $("#servicios").change(function(){
+                   alert("Mensaje"); 
                 });
             });
 
