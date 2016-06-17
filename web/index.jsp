@@ -63,7 +63,7 @@
                 </div>
                 <div class="form-group">
                     <label for="servicio">Asignar Tarea</label>
-                    <textarea class="form-control" rows="10"></textarea>
+                    <textarea class="form-control" rows="102"></textarea>
                 </div>
               
                 <button type="submit" class="btn btn-danger">Guardar Tarea</button>
