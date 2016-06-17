@@ -88,6 +88,13 @@
                 $("#servicios").change(function(){
                    var servicio_id=$("#servicios").val();
                    alert(""+servicio_id);
+                    $.get("http://localhost:8080/AppJava01/Tarea?servicio_id="+servicio_id, function (data, status) {
+                    $.each(data, function (i, item) {
+                        $('#unidades').append('<option value=' + item.unidad_id + '>' + item.nombre + '</option>');
+                    });
+
+                });
+                   
                 });
             });
 
