@@ -98,6 +98,13 @@
                     });
 
                 });
+                
+                $("#unidades").change(function () {
+                    console.log("Id unidad:"+$("#unidades").val());
+                    var unidad_id = $("#unidades").val();
+                    $.get("http://localhost:8080/AppJava01/Tarea?unidad_id=" + unidad_id, function (data, status) {
+                        $.each(data, function (i, item) {
+                                   $('#responsables').append('<option value=' + item.responsable_id + '>' + item.nombre + '</option>');
                    
                 });
             });

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import accesodato.Coneccion;
 import com.google.gson.Gson;
@@ -16,12 +11,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import negocio.Responsable;
 import negocio.Servicio;
 
-/**
- *
- * @author ricardotoledo
- */
+
 public class Tarea extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -47,7 +40,29 @@ public class Tarea extends HttpServlet {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(json);
-            } else {
+                
+                } else if (request.getParameter("unidad_id") != null) {
+                
+                String unidad_id = request.getParameter("unidad_id");
+                con.setConsulta("select * from Responsables where unidad_id='" + unidad_id + "'");
+                ArrayList listaResponsables = new ArrayList();
+                try {
+                    while (con.getResultado().next()) {
+                       Responsable respon=new Responsable();
+                       respon.setResponsable_id(con.getResultado().getInt("reponsable_id"));
+                       respon.setNombre(con.getResultado().getString("nombre"));
+                       respon.setUnidad_id(con.getResultado().getInt("unidad_id"));
+                       respon.setEstado(con.getResultado().getString("estado"));;
+                        listaResponsables.add(respon);
+                    }
+                } catch (SQLException ex) {
+                }
+                String json = new Gson().toJson(listaResponsables);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
+                }    
+             else {
                 con.setConsulta("select * from Servicios");
                 ArrayList lista = new ArrayList();
                 try {

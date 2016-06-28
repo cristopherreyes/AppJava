@@ -17,11 +17,10 @@ public class Coneccion {
     ResultSet rs = null;
 
     public Coneccion() {
-
         String driver = "com.mysql.jdbc.Driver";
         String user = "root";
-        String pass = "root";
-        String url = "jdbc:mysql://localhost:8889/AppJava01";
+        String pass = "";
+        String url = "jdbc:mysql://localhost:3306/AppJava01";
         try {
             Class.forName(driver);
             con = DriverManager.getConnection(url, user, pass);
